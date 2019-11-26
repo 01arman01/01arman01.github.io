@@ -1,0 +1,346 @@
+/* --------------- reset.css --------------- */
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, em, img, strong, sub, sup, b, u, i,  dl, dt, dd, ol, ul, li, fieldset, form, label, table, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;                               /* обнуляем отступы и убираем бордюры */
+    vertical-align: baseline;          /* приводим все к одной базовой линии */
+    background: transparent;      /* чтобы не проскакивали левые фоны, установленные по умолчанию */
+    font-size: 100%;                     /* размер шрифта всем одинаковый */
+}
+a {                                      	     /* ссылка не в общем списке чтобы не сбрасывать outline по умолчанию */
+    margin:0;
+    padding:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+    outline:none;
+}
+table {						/* устраняем отступы между ячейками таблицы */
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+td, td img {
+    vertical-align: top;			/* возвращаем привычное вертикальное выравнивание */
+}
+input, select, button, textarea {
+    margin: 0; 				/* убираем отступы по умолчанию для элементов форм (в частности для checkbox и radio) */
+    font-size: 100%; 			/* делаем размер шрифтов везде одинаковым */
+    outline: none;
+}
+input[type="text"], input[type="password"], textarea {
+    padding: 0; 				/* убираем внутренние отступы для текстовых полей */
+}
+input[type="checkbox"] { 		/* вертикальное выравнивание чекбоксов и радиобатонов относительно меток */
+    vertical-align: bottom;
+}
+input[type="radio"] {
+    vertical-align: text-bottom;
+}
+sub {
+    vertical-align: sub;
+    font-size: smaller;
+}
+sup {
+    vertical-align: super;
+    font-size: smaller;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display:block;
+}
+nav ul {
+    list-style:none;
+}
+/* --------------- /reset.css --------------- */
+
+/* --------------- базовые настройки ---------*/
+html {
+    min-height:100%; /* всегда показываем вертикальную полосу прокрутки  */
+}
+body {
+    color: #000;
+    text-align: left;
+    font-size: 1em; /* используем безопасные шрифтовые CSS стеки */
+    min-height:100%;
+}
+a, a:visited { /* порядок правил для ссылок имеет значение */
+    color: green;
+    text-decoration: underline;
+}
+a:hover {
+    color: greenyellow;
+    text-decoration:none;
+}
+a:focus, a:active {
+    color: #c83867;
+    text-decoration: underline;
+}
+h1, h2, h3, h4, h5, h6{
+    font-weight:normal;
+}
+img{
+
+    max-width:100%;
+}
+.clr{
+    clear:both;
+}
+.clearfix:after {
+    clear: both;
+    content: "";
+    display: table;
+}
+/* --------------- /базовые настройки ---------*/
+
+
+
+body{
+    font-family: 'Open Sans', sans-serif;
+}
+header {
+    background: #292929;
+}
+.center-block-main {
+    margin: 0 auto;
+    max-width: 980px;
+    overflow: hidden;
+}
+.logo {
+    float: left;
+    margin-top: 44px;
+}
+.menu{
+    float: right;
+}
+.menu li{
+    float: left;
+    font-weight: 600; 
+}
+.menu li a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 45px 35px;
+    display: block;
+    border-bottom: 3px solid #292929;
+}
+.menu li a:hover {
+    color: #58c93a;
+    border-bottom: 3px solid #58c93a;
+}
+main{
+float: left;
+    width: 62.6%;
+    margin-top:70px;
+}
+    article{
+       margin-bottom: 70px;
+    }
+    article header{
+        font-size: 0;
+        background: none;
+        margin-bottom: 10px;
+        position: relative;
+        overflow: hidden;
+    }
+article header img{
+    width: 100%;
+}
+article header:hover .publish{
+     bottom: -19px;
+    /*display: block;*/
+}
+    .publish{
+        font-size: 15px ;
+        background: #00000032;
+        color: #ffffff;
+        /*margin-left: 0;*/
+        position: absolute;
+        bottom: -79px;
+        left: -19px;
+        box-sizing: border-box;
+        width: 100%;
+        padding: 10px  0 10px 10px;
+        /*display: none;*/
+        -webkit-transition: all 0.1s linear;
+       -moz-transition: all 0.1s linear;
+        -o-transition: all 0.1s linear;
+        transition: all 0.1s linear;
+
+
+
+
+    }
+    article h2 {
+        font-size: 1.75em;
+        font-weight: bold;
+        text-transform: uppercase;
+        line-height: 1.1;
+        margin:  0 0 40px 20px;
+        color: #4f4e4e;
+    }
+    article p {
+       margin: 0 0 20px 20px;
+        color: #606060;
+        line-height: 1.3;
+    }
+    a.more {
+        border: 2px solid #c2c2c2;
+        color: #c2c2c2;
+        text-decoration: none;
+        padding: 7px 20px;
+        display: inline-block;
+        border-radius: 20px;
+        transition: all 0.1s linear;
+    }
+    a.more:hover{
+        color: #58c93a;
+        border-color: #58c93a;
+    }
+aside {
+    float: right;
+    width: 28.3%;
+    margin-top: 70px;
+}
+    .widget{
+        margin-bottom: 50px;
+    }
+    .widget h2 {
+        text-transform: uppercase;
+        color: #6c6969;
+        background: #f8f8f8;
+        border-left: 3px solid #58c93a;
+        padding: 10px 20px;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+    .search {
+        color: #b9b9b9;
+        font-size: 0.75em;
+        width: 100%;
+        border: 1px solid #e1e0e0;
+        padding: 15px 20px;
+        border-right: none;
+    }
+    .widget nav {
+        margin:  0 0 0 20px;
+    }
+    .widget form{
+        width: 100%;
+        padding: 0;
+        overflow: hidden;
+        height: 40px;
+
+    }
+    .pozition-input{
+        position: relative;
+        /*border: 3px solid black;*/
+    }
+    .widget form .subsribe-input {
+        color: #b9b9b9;
+        font-size: 0.75em;
+        padding: 15px 20px;
+        box-sizing: border-box;
+        position: absolute;
+        width: 100%;
+        outline: none;
+        border: 1px solid #e1e0e0;
+        border-right: none;
+
+    }
+    .widget form   button {
+        padding: 0;
+        font-size: 0;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        position: absolute;
+        top: 12px;
+        right: 10px;
+
+
+    }
+    .pager{
+        border-top: 1px solid #E1E0E0;
+        font-size: 1.125em;
+        font-weight: 600;
+        color: #818181;
+
+    }
+    .pager a{
+        color: #818181;
+        text-decoration: none;
+        text-transform: uppercase;
+    }
+    .prevlous-link{
+        float: left;
+    }
+    .next-link{
+        float: right;
+    }
+    .pager p {
+        padding: 30px;
+        color: #818181;
+
+    }
+    .footer{
+        background: #F8F8F8;
+        border-top: 1px solid #e1e0e0 ;
+        text-align: center;
+        padding: 80px 0 175px 0;
+        font-size: 0.8125em;
+        color: #a6a6a6;
+    }
+    .footer p {
+        margin-top: 15px;
+    }
+    .content-border{
+        border-left: 1px solid #e1e0e0;
+        border-right: 1px solid #e1e0e0;
+
+    }
+    @media screen and (max-width: 768px){
+
+        .logo {
+
+            margin-top: 20px;
+        }
+
+        .menu li a {
+            padding: 20px 35px;
+
+        }
+        main{
+            float: none;
+            width: 100%;
+        }
+        article header img{
+            width: 100%;
+        }
+        aside{
+            float: none;
+            width: 100%;
+        }
+
+
+
+    }
+@media screen and (max-width: 620px){
+    .logo {
+        float: none;
+        display: block;
+        margin: 10px auto;
+    }
+    .menu li a {
+        padding: 10px 35px;
+
+    }
+    .menu{
+        float: none;
+        width: 100%;
+
+    }
+
+}
+
+
+q
