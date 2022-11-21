@@ -7,7 +7,7 @@ html, body, div, span, h1, h2, h3, h4, h5, h6, p, em, img, strong, sub, sup, b, 
     vertical-align: baseline;          /* приводим все к одной базовой линии */
     background: transparent;      /* чтобы не проскакивали левые фоны, установленные по умолчанию */
     font-size: 100%;                     /* размер шрифта всем одинаковый */
-}
+} 
 a {                                      	     /* ссылка не в общем списке чтобы не сбрасывать outline по умолчанию */
     margin:0;
     padding:0;
@@ -165,9 +165,6 @@ article header:hover .publish{
        -moz-transition: all 0.1s linear;
         -o-transition: all 0.1s linear;
         transition: all 0.1s linear;
-
-
-
 
     }
     article h2 {

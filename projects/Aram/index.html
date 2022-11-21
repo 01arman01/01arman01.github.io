@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>Document</title>
+</head>
+<body>
+ <h1>Install and configure Percona XtraDB cluster</h1>
+ <div class="main">
+     <div class="comand_block"><h2>Allow ufw port  </h2>
+         <p>3306, 3307, 4444, 4567, 4568</p></div>
+     <div class="comand_block"><h2>Reload UFW</h2></div>
+     <div class="comand_block"><h2>Update the sytem:</h2>
+         <p class="comsnd">
+         sudo apt-get update</p></div>
+     <div class="comand_block"><h2>Download the repository package:</h2> <p> wget link https://repo.percona.com/apt/percona-release_latest.generic_all.deb</p></div>
+     <div class="comand_block"><h2>Install the package with dpkg</h2>
+         <p>sudo dpkg -i percona-release_latest.generic_all.deb</p>
+     </div>
+     <div class="comand_block"><h2>Refresh the local cache to update the package information: </h2>
+         <p>sudo apt-get update</p>
+     </div>
+     <div class="comand_block"><h2>Enable the release repository for Percona XtraDB Cluster:  </h2>
+         <p>sudo percona-release setup pxc80</p>
+     </div>
+     <div class="comand_block"><h2>Install the cluster:  </h2>
+         <p>sudo apt install -y percona-xtradb-cluster</p>
+     </div>
+     <div class="comand_block"><h2>Configure the Node 1 , 2 , 3 </h2>
+        <p>vim /etc/mysql/mysql.conf.d/mysqld.cnf</p>
+         <pre># Template my.cnf for PXC
+# Edit to your requirements.
+[client]
+socket=/var/run/mysqld/mysqld.sock
+
+[mysqld]
+server-id=1
+datadir=/var/lib/mysql
+socket=/var/run/mysqld/mysqld.sock
+log-error=/var/log/mysql/error.log
+pid-file=/var/run/mysqld/mysqld.pid
+
+# Binary log expiration period is 604800 seconds, which equals 7 days
+binlog_expire_logs_seconds=604800
+
+######## wsrep ###############
+# Path to Galera library
+wsrep_provider=/usr/lib/libgalera_smm.so
+
+# Cluster connection URL contains IPs of nodes
+#If no IP is found, this implies that a new cluster needs to be created,
+#in order to do that you need to bootstrap this node
+wsrep_cluster_address=gcomm://NODE1_IP, NODE2_IP, NODE3_IP
+
+# In order for Galera to work correctly binlog format should be ROW
+binlog_format=ROW
+
+# Slave thread to use
+wsrep_slave_threads=8
+
+wsrep_log_conflicts
+
+# This changes how InnoDB autoincrement locks are managed and is a requirement for Galera
+innodb_autoinc_lock_mode=2
+
+# Node IP address
+wsrep_node_address=Node1 IP_ADDR
+# Cluster name
+wsrep_cluster_name=pxc-cluster
+
+#If wsrep_node_name is not specified,  then system hostname will be used
+wsrep_node_name=pxc-cluster-node-1
+
+#pxc_strict_mode allowed values: DISABLED,PERMISSIVE,ENFORCING,MASTER
+pxc_strict_mode=ENFORCING
+
+# SST method
+wsrep_sst_method=xtrabackup-v2
+pxc-encrypt-cluster-traffic=OFF
+</pre>
+     </div >
+     <div class="comand_block"><h2>Do all contacts for Other 2 Nodes and change   </h2>
+         <p>wsrep_node_name=NODE2(3)_Name, wsrep_node_address=NODE2(3)_IP</p>
+     </div>
+<!--     <div class="comand_block"><h2>Do all contacts for Other 2 Nodes and change   </h2>-->
+<!--         <p>wsrep_node_name=NODE2(3)_Name, wsrep_node_address=NODE2(3)_IP</p>-->
+<!--     </div>-->
+<div class="information">
+    <div class="comand_block">
+        <h2> Then Bootstrap a First Node </h2>
+        <p>
+            systemctl start mysql@bootstrap
+        </p>
+    </div>
+    <div class="comand_block">
+        <h2>And Run other 2 Nodes on normal mode </h2>
+        <p>
+            systemctl start mysql
+        </p>
+    </div>
+    <div class="comand_block">
+        <h2>And cheq :
+        </h2>
+        <p>
+            mysql -u root -p’your_passwd’ -e “show status like ‘wsrep_cluster_size’”;
+        </p>
+    </div>
+    <div class="comand_block">
+        <h2>And cheq :
+        </h2>
+        <p>
+            mysql -u root -p’your_passwd’ -e “show status like ‘wsrep_cluster_size’”;
+        </p>
+    </div>
+    <h1>              IF YOU CRASH A CLUSTER BOOTSRAP ALL 3 NODES AND DO THIS</h1>
+
+    <p>systemctl start mysql@bootstrap <span class="comment">/* for all 3 nodes */</span></p>
+
+    <div class="comand_block">
+        <h2>After this stop all 3 note bootstrap Mode</h2>
+        <p>systemctl stop mysql@bootstrap</p>
+    </div>
+    <div class="comand_block">
+        <h2>After this edit on firs node file  grastate.dat in /var/lib/mysql/grastat.date <br>
+            Set</h2>
+
+    </div>
+    <ul>
+        <li>seqno = Default or -1</li>
+        <li>safe_too_bootstrap = 1</li>
+    </ul>
+    <div class="comand_block">
+        <h2>after this edit node 2 node 3 grastate.dat file in /var/lib/mysql/grastate.dat <br>
+        Set</h2>
+    </div>
+    <ul>
+        <li>seqno = default value </li>
+        <li>safe_to_bootstrap = 0</li>
+    </ul>
+    <div class="comand_block">
+        <h2>Then start bootstrap 1st node : </h2>
+        <p>systemctl start mysql@bootstrap</p>
+    </div>
+
+
+
+    <div class="comand_block"><h2>And start 2 other nodes to normal mode :</h2>
+    <p>systemctl start mysql</p>
+   </div>
+
+
+
+    <div class="comand_block">
+    <h2>And cheq:</h2>
+    <p>mysql -u root -p’your_passwd’ -e “show status like ‘wsrep_cluster_size’”;</p>
+   </div>
+
+
+
+
+
+</div>
+
+ </div>
+
+</body>
+</html>
